@@ -25,7 +25,8 @@ export default function Login() {
 
 //GET SERVER SIDE PROPS PARA FIJARME . 
 export async function getStaticProps({ params }) {
-    const res = await fetch("http://localhost:3000/api/products/")
+
+    const res = await fetch(`${process.env.BASE_URL}/api/products/`)
     const data = await res.json()
   
     return { props: { data } }
