@@ -2,10 +2,50 @@ import Image from 'next/image';
 import styles from '../../styles/productsId.module.css'
 import Layout from '../../components/Layout'
 import {AiOutlineWhatsApp} from 'react-icons/ai'
+import Product from '../../models/productModel'
+
+export async function getStaticPaths() {
+  
+  try{
+      const products = await Product.find({});
+      res.status(200).json({ success:true, data: products})
+  }
+  catch(error){
+      res.status(400).json({success: false, message: error.message});
+  }
+    var data = await products.json()
+
+  const paths = data.data.map((product) => ({
+    params: { id: product._id },
+  }))
+
+  return { paths, fallback: false }
+}
+
+
+export async function getServerSideProps({ params }) {  
+
+  try{
+    const product = await Product.findById(params.id);
+
+    if(!product){
+        return res.status(400).json({success: false})
+    }
+
+    res.status(200).json({success: true, data: product})
+
+  } catch(error){
+    res.status(400).json({success: false})
+  }
+
+  var data = await product.json()
+
+  return { props: { data } }
+}
 
 function Product( { data }) {
 
-  const product = data.data; 
+  const product = data; 
     return (
     <Layout title={`${product.title} | El rey del panchuque`} description={`${product.description}`} 
     link={`https://elreydelpanchuque.com/products/${product._id}`}>
@@ -26,42 +66,6 @@ function Product( { data }) {
     </Layout>
 
     )
-  }
+}
 
-
-  export async function getStaticPaths() {
-
-
-    const res = await fetch(`${process.env.BASE_URL}/api/products/`,
-    {
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'User-Agent': '*',
-      },
-    })
-    const data = await res.json()
-  
-    const paths = data.data.map((product) => ({
-      params: { id: product._id },
-    }))
-  
-    return { paths, fallback: false }
-  }
-  
-  export async function getStaticProps({ params }) {
-    //importar moongoose
-    
-
-    const res = await fetch(`${process.env.BASE_URL}/api/products/${params.id}`,
-    {
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'User-Agent': '*',
-      },
-    })
-    const data = await res.json()
-
-    return { props: { data } }
-  }
-  
   export default Product

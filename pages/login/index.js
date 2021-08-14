@@ -22,18 +22,3 @@ export default function Login() {
             </section>
     )
 }
-
-//GET SERVER SIDE PROPS PARA FIJARME . 
-export async function getStaticProps({ params }) {
-
-    const res = await fetch(`${process.env.BASE_URL}/api/products/`,
-    {
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'User-Agent': '*',
-      },
-    })
-    const data = await res.json()
-  
-    return { props: { data } }
-}

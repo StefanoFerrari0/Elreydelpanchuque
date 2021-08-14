@@ -55,24 +55,22 @@ export default function Home( { data }) {
 }
 
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
 
  let mainProductID = ["60fe6592c89553a21e236285", "6117d66f0135150edcd0f4e5", "6117d6300135150edcd0f4e0"]
   
-  const res = await fetch(`${process.env.BASE_URL}/api/products/`,
-  {
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'User-Agent': '*',
-    },
-  })
+ 
+  try{             
+    const products = await Product.find({});
+    res.status(200).json({ success:true, data: products})
+  }
+  catch(error){
+    res.status(400).json({success: false, message: error.message});
+  }
 
-  const allData = await res.json()
-
-  var data = allData.data.filter(function(el) {
+  var data = products.data.filter(function(el) {
     return el._id == mainProductID[0] || el._id == mainProductID[1]|| el._id == mainProductID[2]
 })
-
 
   return { props: { data } }
 }

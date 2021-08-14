@@ -41,17 +41,20 @@ function Index({ data }) {
 }
 
 //GET SERVER SIDE PROPS PARA FIJARME . 
-export async function getStaticProps({ params }) {
-    const res = await fetch(`${process.env.BASE_URL}/api/products/`,
-    {
-      headers: {
-        Accept: 'application/json, text/plain, */*',
-        'User-Agent': '*',
-      },
-    })
-    const data = await res.json()
+export async function getServerSideProps({ params }) {
+
+  try{
+    const products = await Product.find({});
+    res.status(200).json({ success:true, data: products})
+  }
+
+  catch(error){
+    res.status(400).json({success: false, message: error.message});
+  }
+
+  var data = await products.json()
   
-    return { props: { data } }
+  return { props: { data } }
 }
 
 export default Index;
