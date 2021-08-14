@@ -30,7 +30,15 @@ function Product( { data }) {
 
 
   export async function getStaticPaths() {
-    const res = await fetch(`${process.env.BASE_URL}/api/products/`)
+
+
+    const res = await fetch(`${process.env.BASE_URL}/api/products/`,
+    {
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'User-Agent': '*',
+      },
+    })
     const data = await res.json()
   
     const paths = data.data.map((product) => ({
@@ -44,7 +52,13 @@ function Product( { data }) {
     //importar moongoose
     
 
-    const res = await fetch(`${process.env.BASE_URL}/api/products/${params.id}`)
+    const res = await fetch(`${process.env.BASE_URL}/api/products/${params.id}`,
+    {
+      headers: {
+        Accept: 'application/json, text/plain, */*',
+        'User-Agent': '*',
+      },
+    })
     const data = await res.json()
 
     return { props: { data } }

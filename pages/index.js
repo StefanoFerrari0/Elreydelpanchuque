@@ -59,7 +59,13 @@ export async function getStaticProps({ params }) {
 
  let mainProductID = ["60fe6592c89553a21e236285", "6117d66f0135150edcd0f4e5", "6117d6300135150edcd0f4e0"]
   
-  const res = await fetch(`${process.env.BASE_URL}/api/products/`)
+  const res = await fetch(`${process.env.BASE_URL}/api/products/`,
+  {
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'User-Agent': '*',
+    },
+  })
 
   const allData = await res.json()
 
