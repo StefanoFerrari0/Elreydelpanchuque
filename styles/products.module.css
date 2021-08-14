@@ -1,0 +1,27 @@
+.mainContainer{
+    min-height: 70vh;
+}
+
+.containerProduct{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.title{
+    font-size: 4rem;
+    text-align: center;
+}
+
+.searchDiv{
+    text-align: center;
+}
+
+.searchBar{
+    display: block;
+    margin: 20px auto 40px auto;
+    height: 40px;
+    width: 400px;
+    padding: 0px 10px;
+}
+

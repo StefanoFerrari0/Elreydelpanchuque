@@ -1,0 +1,16 @@
+.btn{
+    background-color: #fdc62e;
+    width: 120px;
+    height: 50px;
+    color: black;
+    border-radius: 8px;
+    border-width: 0px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.1s ease-in;
+}
+
+.btn:hover{
+    background-color: #FEBC00;
+    font-size: 0.9rem;
+}
