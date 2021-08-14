@@ -9,6 +9,7 @@ import SocialMedia from '../public/Newsletter.png'
 
 import {AiFillInstagram, AiOutlineWhatsApp} from 'react-icons/ai'
 import Layout from '../components/Layout'
+import Product from '../../models/productModel'
 
 
 export default function Home( { data }) {

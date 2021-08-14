@@ -3,6 +3,7 @@ import CardProduct from '../../components/CardProduct'
 import styles from '../../styles/products.module.css'
 import Layout from '../../components/Layout'
 import {AiOutlineSearch} from 'react-icons/ai'
+import Product from '../../models/productModel'
 
 function Index({ data }) {
 

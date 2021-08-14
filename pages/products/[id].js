@@ -43,7 +43,7 @@ export async function getServerSideProps({ params }) {
   return { props: { data } }
 }
 
-function Product( { data }) {
+function ProductID( { data }) {
 
   const product = data; 
     return (
@@ -68,4 +68,4 @@ function Product( { data }) {
     )
 }
 
-  export default Product
+  export default ProductID
