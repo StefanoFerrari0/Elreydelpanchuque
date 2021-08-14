@@ -1,9 +1,10 @@
+import connectDB from '../../utils/connectDB'
 import Image from 'next/image';
 import styles from '../../styles/productsId.module.css'
 import Layout from '../../components/Layout'
 import {AiOutlineWhatsApp} from 'react-icons/ai'
 import Product from '../../models/productModel'
-import connectDB from '../../utils/connectDB'
+
 export async function getStaticPaths() {
   
       const products = await Product.find({});
@@ -13,8 +14,6 @@ export async function getStaticPaths() {
       }))
     
       return { paths, fallback: false }
-  
-
 }
 
 
