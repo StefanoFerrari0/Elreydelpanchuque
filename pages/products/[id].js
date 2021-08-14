@@ -6,38 +6,21 @@ import Product from '../../models/productModel'
 
 export async function getStaticPaths() {
   
-  try{
       const products = await Product.find({});
-      res.status(200).json({ success:true, data: products})
-  }
-  catch(error){
-      res.status(400).json({success: false, message: error.message});
-  }
-    var data = await products.json()
+      var data = await products.json()
+      const paths = data.data.map((product) => ({
+        params: { id: product._id },
+      }))
+    
+      return { paths, fallback: false }
+  
 
-  const paths = data.data.map((product) => ({
-    params: { id: product._id },
-  }))
-
-  return { paths, fallback: false }
 }
 
 
 export async function getStaticProps({ params }) {  
 
-  try{
-    const product = await Product.findById(params.id);
-
-    if(!product){
-        return res.status(400).json({success: false})
-    }
-
-    res.status(200).json({success: true, data: product})
-
-  } catch(error){
-    res.status(400).json({success: false})
-  }
-
+  const product = await Product.findById(params.id);
   var data = await product.json()
 
   return { props: { data } }
