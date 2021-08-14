@@ -8,9 +8,9 @@ export default function Footer() {
     <footer className={styles.footer}>
         <div className={styles.socialFooter}>
             <ul style={{padding: "0", marginBottom: "0"}}>
-                <li className={styles.socialItem}> <a href="https://www.instagram.com/elreydelpanchuque_/" target="_blank" rel="noopener noreferrer"><AiFillInstagram  size={20}/> </a></li>
-                <li className={styles.socialItem}> <a  href="https://www.facebook.com/reydelpanchuque/" target="_blank" rel="noopener noreferrer"> <AiFillFacebook size={20}/></a></li>
-                <li className={styles.socialItem}> <a href="https://wa.me/5493813048313" target="_blank" rel="noopener noreferrer"><AiOutlineWhatsApp size={20}/></a></li>
+                <li className={styles.socialItem}> <a href="https://www.instagram.com/elreydelpanchuque_/" target="_blank" rel="noreferrer"><AiFillInstagram  size={20}/> </a></li>
+                <li className={styles.socialItem}> <a  href="https://www.facebook.com/reydelpanchuque/" target="_blank"rel="noreferrer"> <AiFillFacebook size={20}/></a></li>
+                <li className={styles.socialItem}> <a href="https://wa.me/5493813048313" target="_blank" rel="noreferrer"><AiOutlineWhatsApp size={20}/></a></li>
             </ul>
         </div>
     

@@ -26,7 +26,7 @@ function Layout({children, title, description, link}) {
                 {children}
 
                 <div>
-                    <a href="https://wa.me/5493813048313" className={styles.wppButton} target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/5493813048313" className={styles.wppButton} target="_blank" rel="noreferrer">
                     <AiOutlineWhatsApp size={40} style={{marginTop: "10px"}}/>
                     </a>
                 </div>

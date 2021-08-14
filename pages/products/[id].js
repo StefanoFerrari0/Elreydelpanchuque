@@ -12,7 +12,7 @@ export default function Product( { data }) {
       <article className={styles.productContainer}>
         <div className={styles.col}>
           <div className={styles.imgContainer}>
-            <Image src={product.images[0]} width="537" height="537"/>
+            <Image src={product.images[0]} width="537" height="537" alt={product.title}/>
           </div>
         </div>
         <div className={styles.col}>

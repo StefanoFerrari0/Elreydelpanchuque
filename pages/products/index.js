@@ -4,7 +4,7 @@ import styles from '../../styles/products.module.css'
 import Layout from '../../components/Layout'
 import {AiOutlineSearch} from 'react-icons/ai'
 
-export default function index({ data }) {
+export default function Index({ data }) {
 
     const [search, setSearch] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -30,7 +30,7 @@ export default function index({ data }) {
 
                 <div className={styles.containerProduct}>
                     {filteredProducts.length < 1 
-                    ? <h3 className={styles.notFound}>No se encontraron productos que coincidan con su búsqueda "{search}"</h3> 
+                    ? <h3 className={styles.notFound}>No se encontraron productos que coincidan con su búsqueda: {search}</h3> 
                     : <CardProduct products={filteredProducts}></CardProduct>
                     }
                     

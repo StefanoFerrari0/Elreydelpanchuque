@@ -37,13 +37,13 @@ export default function Home( { data }) {
             <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FReyDelPanchuque&tabs=timeline&width=340&height=70&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId" width="340" className={styles.fbPage} scrolling="no" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
           </div>
           <div className={styles.instagram}>
-            <a target="_blank" href="https://www.instagram.com/reydelpanchuque_/">
+            <a target="_blank" href="https://www.instagram.com/reydelpanchuque_/" rel="noreferrer">
             <AiFillInstagram size={50} style={{ fill: 'white' }}/>
             <h4 className={styles.titleIg}>@reydelpanchuque_</h4>
             </a>
           </div>
           <div className={styles.wpp}>
-            <a target="_blank" href="https://wa.me/+5493813048313">
+            <a target="_blank" rel="noreferrer" href="https://wa.me/+5493813048313">
               <AiOutlineWhatsApp size={50} style={{ fill: 'white' }}/>
             <h4 className={styles.titleIg}>+54 9 3813048313</h4>
             </a>
