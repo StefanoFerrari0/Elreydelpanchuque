@@ -13,7 +13,7 @@ function Index({ data }) {
 
     useEffect(() => {
         setFilteredProducts(
-          data.data.filter((product) =>
+          data.filter((product) =>
             product.title.toLowerCase().includes(search.toLowerCase())
           )
         );
@@ -44,9 +44,11 @@ function Index({ data }) {
 
 export async function getServerSideProps({ params }) {
 
-  const products = await Product.find({});
-  var data = await products.json()
-  
+  await connectDB();
+
+  const result = await Product.find({})
+  var data = JSON.parse(JSON.stringify(result))
+
   return { props: { data } }
 }
 

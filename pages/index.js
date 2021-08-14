@@ -6,7 +6,6 @@ import CardProduct from '../components/CardProduct'
 import Button from '../components/Button'
 import styles from '../styles/index.module.css'
 import SocialMedia from '../public/Newsletter.png'
-
 import {AiFillInstagram, AiOutlineWhatsApp} from 'react-icons/ai'
 import Layout from '../components/Layout'
 import connectDB from '../utils/connectDB'
@@ -59,13 +58,17 @@ export default function Home( { data }) {
 
 export async function getServerSideProps({ params }) {
 
- let mainProductID = ["60fe6592c89553a21e236285", "6117d66f0135150edcd0f4e5", "6117d6300135150edcd0f4e0"]
- 
-  const products = await Product.find({});
+  await connectDB();
 
-  var data = products.data.filter(function(el) {
+  let mainProductID = ["60fe6592c89553a21e236285", "6117d66f0135150edcd0f4e5", "6117d6300135150edcd0f4e0"]
+ 
+  const result = await Product.find({})
+ 
+  var allData = JSON.parse(JSON.stringify(result))
+
+  var data = allData.filter(function(el) {
     return el._id == mainProductID[0] || el._id == mainProductID[1]|| el._id == mainProductID[2]
-})
+  })
 
   return { props: { data } }
 }

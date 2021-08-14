@@ -7,20 +7,25 @@ import Product from '../../models/productModel'
 
 export async function getStaticPaths() {
   
-      const products = await Product.find({});
-      var data = await products.json()
-      const paths = data.data.map((product) => ({
-        params: { id: product._id },
-      }))
-    
-      return { paths, fallback: false }
+  await connectDB();
+  const products = await Product.find({});
+  
+  var data = JSON.parse(JSON.stringify(products))
+
+  const paths = data.map((product) => ({
+    params: { id: product._id.toString() },
+  }))
+
+  return { paths, fallback: false }
 }
 
 
 export async function getStaticProps({ params }) {  
 
-  const product = await Product.findById(params.id);
-  var data = await product.json()
+  await connectDB();
+
+  const result = await Product.findById(params.id)
+  var data = JSON.parse(JSON.stringify(result))
 
   return { props: { data } }
 }
