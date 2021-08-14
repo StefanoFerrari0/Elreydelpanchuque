@@ -4,7 +4,7 @@ import styles from '../../styles/products.module.css'
 import Layout from '../../components/Layout'
 import {AiOutlineSearch} from 'react-icons/ai'
 
-export default function Index({ data }) {
+function Index({ data }) {
 
     const [search, setSearch] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -47,3 +47,5 @@ export async function getStaticProps({ params }) {
   
     return { props: { data } }
 }
+
+export default Index;

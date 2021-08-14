@@ -3,7 +3,7 @@ import styles from '../../styles/productsId.module.css'
 import Layout from '../../components/Layout'
 import {AiOutlineWhatsApp} from 'react-icons/ai'
 
-export default function Product( { data }) {
+function Product( { data }) {
 
   const product = data.data; 
     return (
@@ -20,7 +20,7 @@ export default function Product( { data }) {
           <h2 className={styles.price}>${product.price}</h2>
           <h3 className={styles.subtitle}>Caracteristicas:</h3>
           <p className={styles.parragraph}>{product.description}</p>
-          <button className={styles.wpp}><AiOutlineWhatsApp style={{marginRight: "auto", marginLeft: "20px"}} size={33}/><a className={styles.textWpp} href={`https://api.whatsapp.com/send?phone=5493813048313&text=¡Hola!+Estoy+interesado/a+por+el+producto+${product.title}`}target="_blank">Preguntá por este articulo</a></button>
+          <button className={styles.wpp}><AiOutlineWhatsApp style={{marginRight: "auto", marginLeft: "20px"}} size={33}/><a className={styles.textWpp} href={`https://api.whatsapp.com/send?phone=5493813048313&text=¡Hola!+Estoy+interesado/a+por+el+producto+${product.title}`} target="_blank" rel="noreferrer">Preguntá por este articulo</a></button>
         </div>
       </article>
     </Layout>
@@ -49,4 +49,4 @@ export default function Product( { data }) {
     return { props: { data } }
   }
   
-  
+  export default Product
