@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 }
 
 
-export async function getServerSideProps({ params }) {  
+export async function getStaticProps({ params }) {  
 
   try{
     const product = await Product.findById(params.id);

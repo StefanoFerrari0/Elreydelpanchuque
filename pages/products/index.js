@@ -41,7 +41,6 @@ function Index({ data }) {
     )
 }
 
-//GET SERVER SIDE PROPS PARA FIJARME . 
 export async function getServerSideProps({ params }) {
 
   try{
