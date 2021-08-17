@@ -1,8 +1,8 @@
 .card{
     width: 200px;
     background-color: #211F2D;
-    border-radius: 21px 21px;
-    border: 0.2px solid rgb(189, 188, 188);
+    border-radius: 22px 22px;
+    border: 1px solid rgb(189, 188, 188);
     margin: 30px 20px;    
     color: white;
     position: relative;
@@ -16,7 +16,7 @@
     height: 200px;
     width: 100%;
     background-color: rgba(0,0,0,0.5);
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 22px 22px 0px 0px;
 }
 
 .btn{
@@ -34,7 +34,7 @@
 }
 
 .cardImg{
-    border-radius: 20px 20px 0px 0px;
+    border-radius: 22px 22px 0px 0px;
 }
 
 .productName{
