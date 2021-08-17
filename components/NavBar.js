@@ -30,17 +30,18 @@ export default function Navbar() {
         </div>
 
         <ul className={ click ? styles.navLinks + " " + styles.Active : styles.navLinks}>
-          <li className={styles.links}>
-					  <Link href="/products">
-              <a className="">Catálogo</a>
-					  </Link>
-          </li>
-          <li className={styles.links}>
-					  <Link href="/#contacto">
-              <a className="">Contacto</a>
-					  </Link>
-          </li>
+          <Link href="/products">
+            <li className={styles.links}>
+              <a>Catálogo</a>
+            </li>
+          </Link>
+          <Link href="/#contacto">
+            <li className={styles.links}>
+              <a>Contacto</a>
+            </li>
+          </Link>
 				</ul>
+
 
         <div className={styles.burguer} onClick={handleClick}>
            <div className={click ? styles.burgerLine + " " + styles.line1 : styles.burgerLine}></div>

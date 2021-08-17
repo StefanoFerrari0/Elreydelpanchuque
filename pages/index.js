@@ -14,7 +14,7 @@ import Product from '../models/productModel'
 
 export default function Home( { data }) {
   return ( 
-    <Layout description="Somos El rey del panchuque, nos dedicamos a vender panchuqueras y otras maquinas como wafleras y demás. ¡Pasá a ver nuestro catálogo!" title="El rey del panchuque" link="https://elreydelpanchuque.com">
+    <Layout description="Somos El rey del panchuque, nos dedicamos a vender panchuqueras y otras maquinas como wafleras y demás. ¡Pasá a ver nuestro catálogo!" title="El rey del panchuque" link={process.env.BASE_URL}>
       <HeroImage Img={Illustration} Title="¡Bienvenido!" Subtitle="Somos El rey del panchuque, nos dedicamos a vender panchuqueras y demás. Bla bla bla acá hay que poner muchas más descripción." H="550" W="580" alt="Ilustración"></HeroImage>
     
       <section className={styles.product}>

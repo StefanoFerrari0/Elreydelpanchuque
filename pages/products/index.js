@@ -21,7 +21,7 @@ function Index({ data }) {
 
       
     return (
-        <Layout title="Catálogo | El rey del panchuque" description="¡Bienvenido a nuestro cátalogo de productos! Vas a encontrar panchuqueras, wafleras, etc." link="https://elreydelpanchuque.com/products/">
+        <Layout title="Catálogo | El rey del panchuque" description="¡Bienvenido a nuestro cátalogo de productos! Vas a encontrar panchuqueras, wafleras, etc." link={`${process.env.BASE_URL}/products`}>
             <section className={styles.mainContainer}>
                 <h2 className={styles.title}>Catálogo</h2>
                 <div className={styles.searchDiv}>
