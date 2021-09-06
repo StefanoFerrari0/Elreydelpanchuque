@@ -1,49 +1,50 @@
-.card{
-    width: 200px;
-    background-color: #211F2D;
-    border-radius: 22px 22px;
-    border: 1px solid rgb(189, 188, 188);
-    margin: 30px 20px;    
-    color: white;
-    position: relative;
-    z-index:1;
-    font-family: 'Montserrat', sans-serif;
+.card {
+  width: 200px;
+  background-color: #211f2d;
+  border-radius: 22px 22px;
+  box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  margin: 30px 20px;
+  color: white;
+  position: relative;
+  z-index: 1;
+  font-family: "Montserrat", sans-serif;
 }
 
-.hiddenContainer{
-    display: none;
-    transition: all 0.3s ease-in;
-    height: 200px;
-    width: 100%;
-    background-color: rgba(0,0,0,0.5);
-    border-radius: 21px 21px 0px 0px;
+.hiddenContainer {
+  display: none;
+  transition: all 0.3s ease-in;
+  height: 200px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 21px 21px 0px 0px;
 }
 
-.btn{
-    margin: 80px 40px;
+.btn {
+  margin: 80px 40px;
 }
 
-.card:hover .hiddenContainer{
-    position: absolute;
-    z-index: 1;
-    display: block;
+.card:hover .hiddenContainer {
+  position: absolute;
+  z-index: 1;
+  display: block;
 }
 
-.topCard{
-    height: 200px;
+.topCard {
+  height: 200px;
 }
 
-.cardImg{
-    border-radius: 21px 21px 0px 0px;
+.cardImg {
+  border-radius: 21px 21px 0px 0px;
 }
 
-.productName{
-    text-align: center;
-    font-size: 1rem;
-    height: 30px;
+.productName {
+  text-align: center;
+  font-size: 1rem;
+  height: 30px;
 }
 
-.productPrice{
-    text-align: center;
-    padding-top: 10px;
+.productPrice {
+  text-align: center;
+  padding-top: 10px;
 }
