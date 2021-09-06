@@ -1,8 +1,6 @@
 import React from "react";
 import HeroImage from "../components/HeroImage";
 import Illustration from "../public/HomeIllu.png";
-import Illustration2 from "../public/Succes2.png";
-
 import Image from "next/image";
 import CardProduct from "../components/CardProduct";
 import Button from "../components/Button";
@@ -21,7 +19,7 @@ export default function Home({ data }) {
       link={process.env.BASE_URL}
     >
       <HeroImage
-        Img={Illustration2}
+        Img={Illustration}
         Title="¡Bienvenido!"
         Subtitle="Somos El rey del panchuque, nos dedicamos a vender panchuqueras y demás. Bla bla bla acá hay que poner muchas más descripción."
         H="467"
