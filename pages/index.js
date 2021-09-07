@@ -97,9 +97,9 @@ export async function getServerSideProps({ params }) {
   await connectDB();
 
   let mainProductID = [
-    "60fe6592c89553a21e236285",
-    "6117d66f0135150edcd0f4e5",
-    "6117d6300135150edcd0f4e0",
+    "6137a1111d36560008d32412",
+    "6137a25a1d36560008d32453",
+    "6137a17f1d36560008d3242b",
   ];
 
   const result = await Product.find({});
