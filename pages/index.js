@@ -14,14 +14,15 @@ import Product from "../models/productModel";
 export default function Home({ data }) {
   return (
     <Layout
-      description="Somos El rey del panchuque, nos dedicamos a vender panchuqueras y otras maquinas como wafleras y demás. ¡Pasá a ver nuestro catálogo!"
+      description="Somos el rey del panchuque!! Nos dedicamos a la venta de productos gastronómicos, hacemos envíos a todo el país. ¡Pasá a ver nuestro catálogo!"
       title="El rey del panchuque"
       link={process.env.BASE_URL}
     >
       <HeroImage
         Img={Illustration}
         Title="¡Bienvenido!"
-        Subtitle="Somos El rey del panchuque, nos dedicamos a vender panchuqueras y demás. Bla bla bla acá hay que poner muchas más descripción."
+        Subtitle={`Somos el rey del panchuque! Nos dedicamos a la venta de productos gastronómicos. 
+        Hacemos envíos a todo el país. Nos caracterizamos por:\n°Consejos sobre ventas, para que puedas hacer rendir al máximo tus productos y sea más eficiente tu emprendimiento ❤️\n°Atención al público de forma rápida y personalizada.\n°Ayudas técnicas en productos y alimento.\n°Asesoramiento sobre recetas.`}
         H="467"
         W="232"
         alt="Ilustración"
