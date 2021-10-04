@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     params: { id: product._id.toString() },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
@@ -25,7 +25,7 @@ export async function getStaticProps({ params }) {
 
   var data = JSON.parse(JSON.stringify(result));
 
-  return { props: { data } };
+  return { props: { data }, revalidate: 10 };
 }
 
 function ProductID({ data }) {
