@@ -12,6 +12,7 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "cookies": "^0.8.0",
+    "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
     "next": "11.0.1",
