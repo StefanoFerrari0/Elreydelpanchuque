@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "../../styles/Login.module.css";
-import Layout from "../../components/Layout";
-import { AiOutlineSearch } from "react-icons/ai";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
 
 const validate = (values) => {
   const errors = {};
@@ -23,6 +22,8 @@ const validate = (values) => {
 };
 
 export default function SignupForm() {
+  const Router = useRouter();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -42,7 +43,7 @@ export default function SignupForm() {
       };
 
       fetch("/api/auth/login", requestOptions).then(
-        (res) => console.log("respuesta: ", res.json()),
+        (res) => Router.replace("/dashboard"),
         (error) => {
           console.log("error: ", error);
         }
@@ -52,18 +53,20 @@ export default function SignupForm() {
 
   return (
     <section className={styles.mainContainer}>
-      <div>
-        <h2 className={styles.title}>Login</h2>
-        <h3 className={styles.title}>
-          Inicia sesión para poder utilizar más funciones
-        </h3>
-      </div>
+      <div className={styles.card}>
+        <div>
+          <h2 className={styles.title}>Login</h2>
+        </div>
 
-      <div>
-        <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="email">Email Address</label>
-
+        <form className={styles.form} onSubmit={formik.handleSubmit}>
+          <label className={styles.labels} htmlFor="email">
+            Email
+          </label>
+          {formik.errors.email ? (
+            <div className={styles.errors}>{formik.errors.email}</div>
+          ) : null}
           <input
+            className={styles.inputs}
             id="email"
             name="email"
             type="email"
@@ -71,11 +74,16 @@ export default function SignupForm() {
             value={formik.values.email}
           />
 
-          {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+          <label className={styles.labels} htmlFor="password">
+            Contraseña
+          </label>
 
-          <label htmlFor="password">Contraseña</label>
+          {formik.errors.password ? (
+            <div className={styles.errors}>{formik.errors.password}</div>
+          ) : null}
 
           <input
+            className={styles.inputs}
             id="password"
             name="password"
             type="password"
@@ -83,8 +91,9 @@ export default function SignupForm() {
             value={formik.values.password}
           />
 
-          {formik.errors.password ? <div>{formik.errors.password}</div> : null}
-          <button type="submit">Submit</button>
+          <button className={styles.btn} type="submit">
+            Iniciar sesión
+          </button>
         </form>
       </div>
     </section>
