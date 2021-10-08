@@ -9,7 +9,7 @@ const validate = (values) => {
   if (!values.password) {
     errors.password = "Requerido";
   } else if (values.password.length < 6) {
-    errors.password = "La contraseña debe tener al menos 8 caracteres.";
+    errors.password = "La contraseña debe tener al menos 6 caracteres.";
   }
 
   if (!values.email) {
@@ -62,7 +62,7 @@ export default function SignupForm() {
           <label className={styles.labels} htmlFor="email">
             Email
           </label>
-          {formik.errors.email ? (
+          {formik.touched.email && formik.errors.email ? (
             <div className={styles.errors}>{formik.errors.email}</div>
           ) : null}
           <input
@@ -71,6 +71,7 @@ export default function SignupForm() {
             name="email"
             type="email"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.email}
           />
 
@@ -78,7 +79,7 @@ export default function SignupForm() {
             Contraseña
           </label>
 
-          {formik.errors.password ? (
+          {formik.touched.password && formik.errors.password ? (
             <div className={styles.errors}>{formik.errors.password}</div>
           ) : null}
 
@@ -88,6 +89,7 @@ export default function SignupForm() {
             name="password"
             type="password"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.password}
           />
 

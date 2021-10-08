@@ -28,7 +28,7 @@ const Dashboard = ({ data }) => {
   return (
     <div>
       <h1>Productos</h1>
-      <a href="/products/add">Add User</a>
+      <a href="/dashboard/products/add">Add User</a>
       <table>
         <thead>
           <tr>
@@ -43,14 +43,9 @@ const Dashboard = ({ data }) => {
                 <td>{product.title}</td>
                 <td>{product.price}</td>
                 <td>
+                  <a href={`/dashboard/products/edit/${product._id}`}>Edit</a>
                   <button
-                    href={`/products/edit/${product.id}`}
-                    className="btn btn-sm btn-primary mr-1"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => deleteUser(product.id)}
+                    onClick={() => deleteUser(product._id)}
                     disabled={product.isDeleting}
                   >
                     {product.isDeleting ? (
@@ -71,8 +66,8 @@ const Dashboard = ({ data }) => {
           )}
           {products && !products.length && (
             <tr>
-              <td colSpan="4" className="text-center">
-                <div className="p-2">No Users To Display</div>
+              <td>
+                <div>No hay productos para mostrar</div>
               </td>
             </tr>
           )}
