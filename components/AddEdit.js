@@ -1,18 +1,27 @@
 import { useRouter } from "next/router";
 import { Formik } from "formik";
 export { AddEdit };
+import React, { useState } from "react";
 
 function AddEdit(props) {
   const product = props?.product;
   const isAddMode = !product;
   const router = useRouter();
-  console.log("isaddmode: ", isAddMode);
+
+  let firstImg = isAddMode
+    ? "https://via.placeholder.com/500"
+    : product.images[0];
+
+  var [img, setImg] = useState(firstImg);
+  var [file, setFile] = useState("");
+  let [dataImg, setDataImg] = useState("");
+
   if (isAddMode) {
     var initValues = {
       title: "",
       price: 0,
       description: "",
-      images: [],
+      images: img,
       category: "",
     };
   } else {
@@ -20,16 +29,14 @@ function AddEdit(props) {
       title: product.title,
       price: product.price,
       description: product.description,
-      images: product.images,
+      images: img,
       category: product.category,
     };
   }
 
-  console.log(initValues);
+  const createProduct = async (data) => {
+    uploadImage();
 
-  // get functions to build form with useForm() hook
-
-  function createProduct(data) {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -37,19 +44,35 @@ function AddEdit(props) {
         title: data.title,
         price: data.price,
         description: data.description,
-        images: data.images,
+        images: [img],
         category: data.category,
       }),
     };
-    return fetch(`/api/products/`, requestOptions)
-      .then((res) => {
-        alert("Producto editado.");
-        router.replace("/dashboard/products");
+
+    return await fetch(`/api/products/`, requestOptions)
+      .then((res) => {})
+      .then(() => {
+        alert(`El producto ${data.title} fue creado.`);
+        router.replace("/dashboard/");
       })
       .catch(console.log(error));
-  }
+  };
 
-  function editProduct(id, data) {
+  const editProduct = async (id, data) => {
+    var editImg = false;
+    if (img != product.images[0]) {
+      console.log("SE ESTA SUBIENDO LA IMAGEN A CLOUDINARY");
+      editImg = true;
+      await uploadImage();
+    }
+
+    var imagePost;
+    if (editImg) {
+      imagePost = dataImg.url;
+    } else {
+      imagePost = product.images[0];
+    }
+    console.log("FINAL POST IMAGEN: ", imagePost);
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -57,18 +80,40 @@ function AddEdit(props) {
         title: data.title,
         price: data.price,
         description: data.description,
-        images: data.images,
+        images: [imagePost],
         category: data.category,
       }),
     };
 
-    return fetch(`/api/products/${id}`, requestOptions)
+    return await fetch(`/api/products/${id}`, requestOptions)
       .then((res) => {
-        alert("Producto editado.");
-        router.replace("/dashboard");
+        res.json();
       })
-      .catch(console.log(error));
-  }
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "Product | Rey del panchuque");
+    data.append("cloud_name", "stefanoferrari0");
+
+    await fetch(
+      "https://api.cloudinary.com/v1_1/stefanoferrari0/image/upload",
+      {
+        method: "post",
+        body: data,
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setDataImg(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Formik
@@ -86,10 +131,6 @@ function AddEdit(props) {
 
         if (!values.description) {
           errors.description = "La descripción no puede estar vacia.";
-        }
-
-        if (!values.images) {
-          errors.images = "Debe subir una imagen.";
         }
 
         if (!values.category) {
@@ -154,11 +195,16 @@ function AddEdit(props) {
           </div>
           <div>
             <label htmlFor="category">Imagen</label>
-            <input type="file" />
-            <img />
-            {touched.images && errors.images ? (
-              <div>{errors.images}</div>
-            ) : null}
+            <input
+              type="file"
+              onChange={(e) => {
+                let file = e.target.files[0];
+                setFile(file);
+                let img = URL.createObjectURL(file);
+                setImg(img);
+              }}
+            />
+            <img style={{ width: "500px", height: "500px" }} src={img} />
           </div>
           <button type="submit">Enviar</button>
         </form>

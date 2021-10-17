@@ -1,5 +1,4 @@
 import { AddEdit } from "../../../../components/AddEdit";
-import { useRouter } from "next/router";
 
 export default AddEdit;
 
