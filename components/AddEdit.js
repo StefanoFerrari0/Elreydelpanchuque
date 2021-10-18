@@ -225,7 +225,7 @@ function AddEdit(props) {
             <label className={styles.label} htmlFor="category">
               Imagen
             </label>
-            <Image style={{ width: "500px", height: "500px" }} src={img} />
+            <Image width={300} height={300} src={img} />
           </div>
           <div className={styles.inputDiv}>
             <input
