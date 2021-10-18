@@ -3,6 +3,7 @@ import connectDB from "../../utils/connectDB";
 import React, { useState, useEffect } from "react";
 import Product from "../../models/productModel";
 import styles from "../../styles/dashboard.module.css";
+import Link from "next/link";
 
 const Dashboard = ({ data }) => {
   const [products, setProducts] = useState(null);
@@ -35,7 +36,7 @@ const Dashboard = ({ data }) => {
     <section className={styles.sectionDashboard}>
       <h1>Productos</h1>
       <button>
-        <a href="/dashboard/products/add">Crear producto</a>
+        <Link href="/dashboard/products/add">Crear producto</Link>
       </button>
       <table className={styles.rwdtable}>
         <thead>
@@ -53,9 +54,9 @@ const Dashboard = ({ data }) => {
                 <td data-th="Precio">{product.price}</td>
                 <td data-th="Acciones">
                   <button>
-                    <a href={`/dashboard/products/edit/${product._id}`}>
+                    <Link href={`/dashboard/products/edit/${product._id}`}>
                       Editar
-                    </a>
+                    </Link>
                   </button>
                   <button
                     onClick={() => deleteUser(product._id, product.title)}

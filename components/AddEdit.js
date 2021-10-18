@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { Formik } from "formik";
 import React, { useState } from "react";
 import styles from "../styles/AddEdit.module.css";
+import Image from "next/image";
 
 export { AddEdit };
 
@@ -224,7 +225,7 @@ function AddEdit(props) {
             <label className={styles.label} htmlFor="category">
               Imagen
             </label>
-            <img style={{ width: "500px", height: "500px" }} src={img} />
+            <Image style={{ width: "500px", height: "500px" }} src={img} />
           </div>
           <div className={styles.inputDiv}>
             <input
