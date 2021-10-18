@@ -1,11 +1,13 @@
 import { useRouter } from "next/router";
 import { Formik } from "formik";
-export { AddEdit };
 import React, { useState } from "react";
+import styles from "../styles/AddEdit.module.css";
+
+export { AddEdit };
 
 function AddEdit(props) {
   const product = props?.product;
-  const isAddMode = !product;
+  var isAddMode = !product;
   const router = useRouter();
 
   let firstImg = isAddMode
@@ -14,7 +16,6 @@ function AddEdit(props) {
 
   var [img, setImg] = useState(firstImg);
   var [file, setFile] = useState("");
-  let [dataImg, setDataImg] = useState("");
 
   if (isAddMode) {
     var initValues = {
@@ -34,9 +35,31 @@ function AddEdit(props) {
     };
   }
 
-  const createProduct = async (data) => {
-    uploadImage();
+  const uploadImage = async () => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "Product | Rey del panchuque");
+    data.append("cloud_name", "stefanoferrari0");
 
+    return await fetch(
+      "https://api.cloudinary.com/v1_1/stefanoferrari0/image/upload",
+      {
+        method: "post",
+        body: data,
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        var urlData = data.url;
+        return urlData;
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const createProduct = async (data) => {
+    const imagePost = await uploadImage();
+
+    console.log("imagePost");
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,35 +67,31 @@ function AddEdit(props) {
         title: data.title,
         price: data.price,
         description: data.description,
-        images: [img],
+        images: [imagePost],
         category: data.category,
       }),
     };
 
     return await fetch(`/api/products/`, requestOptions)
-      .then((res) => {})
+      .then((res) => {
+        res.json();
+      })
       .then(() => {
         alert(`El producto ${data.title} fue creado.`);
         router.replace("/dashboard/");
       })
-      .catch(console.log(error));
+      .catch((error) => console.log(error));
   };
 
   const editProduct = async (id, data) => {
-    var editImg = false;
+    var dataImg;
     if (img != product.images[0]) {
       console.log("SE ESTA SUBIENDO LA IMAGEN A CLOUDINARY");
-      editImg = true;
-      await uploadImage();
+      dataImg = await uploadImage();
     }
 
-    var imagePost;
-    if (editImg) {
-      imagePost = dataImg.url;
-    } else {
-      imagePost = product.images[0];
-    }
-    console.log("FINAL POST IMAGEN: ", imagePost);
+    const imagePost = dataImg ? dataImg : product.images[0];
+
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -89,30 +108,11 @@ function AddEdit(props) {
       .then((res) => {
         res.json();
       })
-      .then(() => {})
-      .catch((error) => console.log(error));
-  };
-
-  const uploadImage = async () => {
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "Product | Rey del panchuque");
-    data.append("cloud_name", "stefanoferrari0");
-
-    await fetch(
-      "https://api.cloudinary.com/v1_1/stefanoferrari0/image/upload",
-      {
-        method: "post",
-        body: data,
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setDataImg(data);
+      .then(() => {
+        alert(`El producto ${data.title} fue editado.`);
+        router.replace("/dashboard/");
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -151,10 +151,13 @@ function AddEdit(props) {
         touched,
         errors,
       }) => (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="title">Titulo</label>
+        <form className={styles.sectionForm} onSubmit={handleSubmit}>
+          <div className={styles.inputDiv}>
+            <label className={styles.label} htmlFor="title">
+              Titulo
+            </label>
             <input
+              className={styles.inputs}
               type="text"
               id="title"
               name="title"
@@ -165,9 +168,12 @@ function AddEdit(props) {
             />
             {touched.title && errors.title ? <div>{errors.title}</div> : null}
           </div>
-          <div>
-            <label htmlFor="price">Precio</label>
+          <div className={styles.inputDiv}>
+            <label className={styles.label} htmlFor="price">
+              Precio
+            </label>
             <input
+              className={styles.inputs}
               type="number"
               id="price"
               name="price"
@@ -178,9 +184,12 @@ function AddEdit(props) {
             />
             {touched.price && errors.price ? <div>{errors.price}</div> : null}
           </div>
-          <div>
-            <label htmlFor="description">Descripción</label>
+          <div className={styles.inputDiv}>
+            <label className={styles.label} htmlFor="description">
+              Descripción
+            </label>
             <textarea
+              className={styles.inputs}
               type="text"
               id="description"
               name="description"
@@ -193,9 +202,33 @@ function AddEdit(props) {
               <div>{errors.description}</div>
             ) : null}
           </div>
-          <div>
-            <label htmlFor="category">Imagen</label>
+          <div className={styles.inputDiv}>
+            <label className={styles.label} htmlFor="category">
+              Categoria
+            </label>
             <input
+              className={styles.inputs}
+              type="string"
+              id="category"
+              name="category"
+              placeholder="Categoria"
+              value={values.category}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            {touched.category && errors.category ? (
+              <div>{errors.category}</div>
+            ) : null}
+          </div>
+          <div className={styles.inputDiv}>
+            <label className={styles.label} htmlFor="category">
+              Imagen
+            </label>
+            <img style={{ width: "500px", height: "500px" }} src={img} />
+          </div>
+          <div className={styles.inputDiv}>
+            <input
+              className={styles.inputs}
               type="file"
               onChange={(e) => {
                 let file = e.target.files[0];
@@ -204,7 +237,6 @@ function AddEdit(props) {
                 setImg(img);
               }}
             />
-            <img style={{ width: "500px", height: "500px" }} src={img} />
           </div>
           <button type="submit">Enviar</button>
         </form>

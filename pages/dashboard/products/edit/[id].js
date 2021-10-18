@@ -17,7 +17,7 @@ export async function getServerSideProps({ params }) {
   console.log("PRODUCT: ", product);
 
   if (!product.success) {
-    alert("Ese usuario no existe");
+    alert("Ese producto no existe");
   }
   return {
     props: { product: product.data },

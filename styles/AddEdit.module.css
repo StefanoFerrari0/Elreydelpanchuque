@@ -1,0 +1,20 @@
+.sectionForm {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  flex-direction: column;
+}
+
+.inputDiv {
+  min-width: 300px;
+  margin: 10px;
+}
+
+.inputs {
+  min-width: 300px;
+}
+.label {
+  display: block;
+  text-align: center;
+  margin: 10px;
+}

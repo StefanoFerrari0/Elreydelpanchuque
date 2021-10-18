@@ -2,6 +2,7 @@ import withAuth from "../../middlewares/withAuth";
 import connectDB from "../../utils/connectDB";
 import React, { useState, useEffect } from "react";
 import Product from "../../models/productModel";
+import styles from "../../styles/dashboard.module.css";
 
 const Dashboard = ({ data }) => {
   const [products, setProducts] = useState(null);
@@ -10,60 +11,60 @@ const Dashboard = ({ data }) => {
     setProducts(data);
   }, []);
 
-  function deleteUser(id) {
-    setProducts(
-      products.map((x) => {
-        if (x.id === id) {
-          x.isDeleting = true;
-        }
-        return x;
-      })
-    );
-    userService.delete(id).then(() => {
-      setProducts((products) => products.filter((x) => x.id !== id));
-    });
-  }
+  const deleteUser = async (id, title) => {
+    if (confirm(`¿Desea borrar el producto ${title}?`)) {
+      const requestOptions = {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: id,
+        }),
+      };
+      return await fetch(`/api/products/${id}`, requestOptions)
+        .then(() => {
+          var newList = products.filter((x) => x._id !== id);
+          setProducts(newList);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      return;
+    }
+  };
 
-  console.log(products);
   return (
-    <div>
+    <section className={styles.sectionDashboard}>
       <h1>Productos</h1>
-      <a href="/dashboard/products/add">Add User</a>
-      <table>
+      <button>
+        <a href="/dashboard/products/add">Crear producto</a>
+      </button>
+      <table className={styles.rwdtable}>
         <thead>
           <tr>
             <th>Nombre</th>
             <th>Precio</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {products &&
             products.map((product) => (
               <tr key={product._id}>
-                <td>{product.title}</td>
-                <td>{product.price}</td>
-                <td>
-                  <a href={`/dashboard/products/edit/${product._id}`}>Edit</a>
+                <td data-th="Nombre">{product.title}</td>
+                <td data-th="Precio">{product.price}</td>
+                <td data-th="Acciones">
+                  <button>
+                    <a href={`/dashboard/products/edit/${product._id}`}>
+                      Editar
+                    </a>
+                  </button>
                   <button
-                    onClick={() => deleteUser(product._id)}
-                    disabled={product.isDeleting}
+                    onClick={() => deleteUser(product._id, product.title)}
                   >
-                    {product.isDeleting ? (
-                      <span className="spinner-border spinner-border-sm"></span>
-                    ) : (
-                      <span>Delete</span>
-                    )}
+                    Borrar
                   </button>
                 </td>
               </tr>
             ))}
-          {!products && (
-            <tr>
-              <td colSpan="4" className="text-center">
-                <div className="spinner-border spinner-border-lg align-center"></div>
-              </td>
-            </tr>
-          )}
           {products && !products.length && (
             <tr>
               <td>
@@ -73,7 +74,7 @@ const Dashboard = ({ data }) => {
           )}
         </tbody>
       </table>
-    </div>
+    </section>
   );
 };
 
@@ -82,6 +83,20 @@ export async function getServerSideProps({ params }) {
 
   const result = await Product.find({});
   var data = JSON.parse(JSON.stringify(result));
+
+  data.sort(function (a, b) {
+    var nameA = a.title.toUpperCase();
+    var nameB = b.title.toUpperCase();
+
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    return 0;
+  });
 
   return { props: { data } };
 }
